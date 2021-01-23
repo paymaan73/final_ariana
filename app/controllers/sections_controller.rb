@@ -82,8 +82,8 @@ class SectionsController < ApplicationController
     end
 
     def force_profile
-      if !current_user.profile && current_user.user?
-        render :new_profile_path
+      if current_user && !current_user.profile && current_user.user?
+        render new_profile_path
       end
     end
 end
