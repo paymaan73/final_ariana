@@ -1,0 +1,28 @@
+
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+          <% if user.master? || user.user? %>
+              <td><%= user.profile.firstname if user.profile %></td>
+              <td><%= user.email %></td>
+              <% if current_user.admin? %>
+                  <td><%= link_to 'Destroy', admin_destroy_user_path(id: user), method: :delete %></td>
+              <% end %>
+          <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

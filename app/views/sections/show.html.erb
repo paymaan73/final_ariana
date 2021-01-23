@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @section.name %>
+</p>
+
+<p>
+  <strong>Salary:</strong>
+  <%= @section.salary %>
+</p>
+<% if current_user && (current_user.admin? || current_user.master?) %>
+    <%= link_to 'Edit', edit_section_path(@section) %> |
+<% end %>

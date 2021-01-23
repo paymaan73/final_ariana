@@ -1,0 +1,11 @@
+
+<% if current_user && current_user.master?  %>
+    <div>
+        <strong>Master</strong>
+    </div>
+    <div>
+        <%= link_to "Clubs", clubs_path %>
+        <%= link_to "Sections", sections_path %>
+        <%= link_to "Signout", destroy_user_session_path, method: :delete %>
+    </div>
+<% end %>

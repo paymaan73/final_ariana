@@ -1,0 +1,42 @@
+<div>
+    <% if current_user && current_user.user? %>
+        <div>
+            <strong>User:<small><%= current_user.profile.present? ? current_user.profile.firstname : current_user.email %></small>
+        </div>
+        <div>
+            <%= link_to "Signout", destroy_user_session_path, method: :delete %>
+            <%= link_to "EditAccount", edit_user_registration_path %>
+            <% if current_user && current_user.user? %>
+                <% link_to "Profile", edit_profile_path(current_user.profile) if current_user.profile %>
+            <% end %>
+            <%= link_to "ReservedClub", clubs_path if current_user.user? %>
+            <div>
+                <section>
+
+                    <% current_user.sections.each do |section| %>
+                        <header><h4><%= section.club.name %></h4></header>
+                        <div>
+                            <strong>Name:<%= section.name %></strong>
+                        </div>
+                        <div>
+                            <footer>
+                                <small>Salary:<%= section.salary %></small>
+                            </footer>
+                        </div>
+                    <% end %>
+
+                </section>
+            </div>
+
+    <% else %>
+            <% if !current_user ||  current_user.user? %>
+                <%= link_to "Signup", new_user_registration_path %>
+                <%= link_to "Signin", user_session_path %>
+                <%= link_to "Clubs", clubs_path %>
+            <% end %>
+
+    <% end %>
+
+        </div>
+
+</div>
