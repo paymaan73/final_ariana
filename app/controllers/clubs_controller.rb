@@ -69,7 +69,6 @@ class ClubsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_club
-      params[:id] = nil
       if params[:id]
         @club = Club.find(params[:id])
       else

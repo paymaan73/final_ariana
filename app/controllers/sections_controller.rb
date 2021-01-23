@@ -72,9 +72,8 @@ class SectionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_section
-      params[:id] = nil
       if params[:id]
-        @section = Section.find(params[:id])
+        @section ||= Section.find(params[:id])
       else
         redirect_to root_path, notice: "Not found"
       end
