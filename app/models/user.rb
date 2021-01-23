@@ -10,6 +10,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
+  EMAIL_VALID  = /\A(\S+)@(.+)\.(\S+)\z/i
+
+  validates :email, format: {with: EMAIL_VALID }
+
 
   def admin?
 
