@@ -16,10 +16,11 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/new
   def new
-    if current_user
+    if current_user && !current_user.profile
       @profile = Profile.new
     else
-      redirect_to root_path, notice: "You must login"
+      redirect_to root_path, notice: "You must login or" unless current_user
+      redirect_to root_path, notice: "You profile exist" if current_user.profile
     end
   end
 
@@ -49,13 +50,15 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-    respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile }
-      else
-        format.html { render :edit }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+    if current_user.profile
+      respond_to do |format|
+        if @profile.update(profile_params)
+          format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+          format.json { render :show, status: :ok, location: @profile }
+        else
+          format.html { render :edit }
+          format.json { render json: @profile.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -73,7 +76,12 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find(params[:id])
+      params[:id]  = nil
+      if params[:id]
+        @profile = Profile.find(params[:id])
+      else
+        redirect_to root_path, notice: "Not found"
+      end
     end
 
     # Only allow a list of trusted parameters through.

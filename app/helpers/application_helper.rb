@@ -1,8 +1,9 @@
 module ApplicationHelper
   def root?
-      unless current_user && current_user.admin?
+    unless current_user && current_user.admin?
         redirect_to root_path
-      end
+    end
+
   end
     def premium_user?
         unless current_user && (current_user.admin? || current_user.master?)

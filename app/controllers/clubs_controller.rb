@@ -69,7 +69,13 @@ class ClubsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_club
-      @club = Club.find(params[:id])
+      params[:id] = nil
+      if params[:id]
+        @club = Club.find(params[:id])
+      else
+        redirect_to root_path, notice: "Not found"
+      end
+
     end
 
     # Only allow a list of trusted parameters through.
@@ -78,8 +84,9 @@ class ClubsController < ApplicationController
     end
 
     def force_profile
-        if(!current_user.profile && current_user.user?)
+        if(current_user && !current_user.profile && current_user.user?)
           redirect_to new_profile_path, notice: "must profile for activity"
         end
     end
+
 end

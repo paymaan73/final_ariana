@@ -34,6 +34,6 @@
 
 <br>
 
-<% if current_user.admin? || current_user.master? %>
+<% if current_user && (current_user.admin? || current_user.master?) %>
   <%= link_to 'New Clubs', new_club_path %>
 <% end %>

@@ -22,7 +22,6 @@ class SectionsController < ApplicationController
 
   # GET /sections/1/edit
   def edit
-    premium_user?
   end
 
   # POST /sections
@@ -73,17 +72,23 @@ class SectionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_section
-      @section = Section.find(params[:id])
+      params[:id] = nil
+      if params[:id]
+        @section = Section.find(params[:id])
+      else
+        redirect_to root_path, notice: "Not found"
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def section_params
       params.require(:section).permit(:name, :salary)
     end
-
     def force_profile
-      if current_user && !current_user.profile && current_user.user?
-        render new_profile_path
-      end
+        if( current_user && !current_user.profile && current_user.user?)
+          redirect_to new_profile_path, notice: "must profile for activity"
+        end
     end
+
+
 end

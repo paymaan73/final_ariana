@@ -1,24 +1,25 @@
 <p id="notice"><%= notice %></p>
+    <% if current_user == @profile.specs %>
+    <p>
+      <strong>Firstname:</strong>
+      <%= @profile.firstname %>
+    </p>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @profile.firstname %>
-</p>
+    <p>
+      <strong>Lastname:</strong>
+      <%= @profile.lastname %>
+    </p>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @profile.lastname %>
-</p>
+    <p>
+      <strong>Address:</strong>
+      <%= @profile.address %>
+    </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @profile.address %>
-</p>
+    <p>
+      <strong>Tell:</strong>
+      <%= @profile.tell %>
+    </p>
 
-<p>
-  <strong>Tell:</strong>
-  <%= @profile.tell %>
-</p>
-
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+      <%= link_to 'Edit', edit_profile_path(@profile) %> |
+      <%= link_to 'Back', profiles_path %>
+    <% end %>
