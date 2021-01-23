@@ -20,6 +20,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.new
     else
       redirect_to root_path, notice: "You must login"
+    end
   end
 
   # GET /profiles/1/edit

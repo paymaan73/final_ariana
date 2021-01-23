@@ -9,7 +9,7 @@
             </div>
             <div>
                 <% if current_user.clubs.include?(@club) %>
-                    <% if current_user.sections.include?(section) %>
+                    <% if current_user && current_user.profile && current_user.sections.include?(section) %>
                         <strong>Reserved</strong>
                         <div>
                             <%= link_to "Exit section", section_cancell_path(section_id: section.id), method: :delete  %>

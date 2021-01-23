@@ -8,7 +8,7 @@ class UserSectionsController < ApplicationController
     unless current_user.sections.include?(section_to_add)
 
       UserSection.create(section: section_to_add, user: current_user)
-      redirect_to root_path, notice: "You have successfully apply in #{section_to_add}"
+      redirect_to root_path, notice: "You have successfully apply in #{section_to_add.name}"
 
     else
 
