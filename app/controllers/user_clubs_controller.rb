@@ -22,9 +22,12 @@ class UserClubsController < ApplicationController
   def destroy
 
     club  = Club.find(params[:club_id])
-    if current_user.clubs.delete(club)
+    section  = Section.find_by(club: club)
+
+    if current_user.clubs.delete(club) && current_user.sections.delete(section)
 
       redirect_to clubs_path, notice: "Cancel clubs for you."
+
     end
 
   end
